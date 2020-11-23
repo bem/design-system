@@ -1,0 +1,7 @@
+{
+  "packages": ["packages/*"],
+  "version": "independent",
+  "npmClientArgs": ["--no-package-lock"],
+  "conventionalCommits": true,
+  "exact": true
+}

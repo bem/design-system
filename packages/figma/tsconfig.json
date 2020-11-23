@@ -1,0 +1,9 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "lib": ["DOM"],
+        "outDir": "dist",
+        "rootDir": ".",
+        "typeRoots": ["./node_modules/@types", "./node_modules/@figma"]
+    }
+}
