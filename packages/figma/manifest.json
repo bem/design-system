@@ -1,0 +1,7 @@
+{
+  "name": "yandex-design-system",
+  "id": "912753904720732432",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html"
+}
