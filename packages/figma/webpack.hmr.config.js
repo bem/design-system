@@ -1,40 +1,17 @@
-const { resolve } = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const InlineChunkHtmlPlugin = require('inline-chunk-html-plugin')
 const { merge } = require('webpack-merge')
-
-const template = '<div id="root"></div>'
 
 const developmentConfig = {
   mode: 'development',
   devtool: 'inline-source-map',
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'ui.html',
-      templateContent: () => `${template}<script src="http://localhost:8080/ui.js"></script>`,
-      inject: false,
-    }),
-  ],
 }
 
 const productionConfig = {
   mode: 'production',
   devtool: false,
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'ui.html',
-      templateContent: () => template,
-      inlineSource: '.(js)$',
-      chunks: ['ui'],
-    }),
-    new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/ui\.js$/]),
-  ],
 }
-
 const baseConfig = {
   entry: {
     ui: './src/ui.tsx',
-    code: './src/code.ts',
   },
 
   module: {
@@ -51,7 +28,20 @@ const baseConfig = {
   },
   output: {
     filename: '[name].js',
-    path: resolve(__dirname, 'dist'),
+    publicPath: 'http://localhost:8080/',
+  },
+  devServer: {
+    sockPort: 8080,
+    allowedHosts: ['*'],
+    watchOptions: { aggregateTimeout: 300, poll: 1000 },
+    disableHostCheck: true,
+    hot: true,
+    injectHot: true,
+    injectClient: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+    },
   },
 }
 

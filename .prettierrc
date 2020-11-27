@@ -3,8 +3,8 @@
   "endOfLine": "lf",
   "parser": "typescript",
   "printWidth": 120,
-  "semi": true,
+  "semi": false,
   "singleQuote": true,
-  "tabWidth": 4,
+  "tabWidth": 2,
   "trailingComma": "all"
 }

@@ -1,8 +1,11 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-
-const App = () => {
-  return <h1>Yandex Design System</h1>
-}
+import { App } from './App'
 
 ReactDom.render(<App />, document.getElementById('root'))
+
+// @ts-ignore
+if (module.hot) {
+  // @ts-ignore
+  module.hot.accept()
+}
