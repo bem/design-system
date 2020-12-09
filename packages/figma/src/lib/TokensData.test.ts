@@ -1,6 +1,6 @@
 import { isTokenPrimitiveValue, isTokensGroup, isTokenValue, TokensData } from './TokensData'
 
-describe('TokenData', () => {
+describe('TokensData', () => {
   test('tokensJSON set', () => {
     expect(new TokensData(JSON.stringify('{}')).tokensJSON).toBeTruthy()
   })
@@ -36,16 +36,7 @@ describe('TokenData', () => {
         },
       },
     }
-    expect(new TokensData(JSON.stringify(tokens)).resolvedTokens).toEqual({
-      colors: {
-        Red: {
-          '100': '#ff0000',
-        },
-        Action: {
-          Focus: '#ff0000',
-        },
-      },
-    })
+    expect(new TokensData(JSON.stringify(tokens)).resolvedTokens).toMatchSnapshot()
   })
   test('#resolvedTokens get resolved tokens alias-to-alias', () => {
     const tokens = {

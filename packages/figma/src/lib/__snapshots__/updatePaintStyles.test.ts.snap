@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mapTokensGroupToFigmaGroup return correct mapping 1`] = `
+Object {
+  "Action/Base": Object {
+    "description": "Basic color",
+    "value": "#0ff",
+  },
+  "Red/100": "#f00",
+  "Red/200": Object {
+    "description": "Basic color",
+    "value": "#f10",
+  },
+}
+`;
+
+exports[`toFigmaRGB return default value as figma PaintStyle 1`] = `
+Object {
+  "b": 0,
+  "g": 0,
+  "r": 0,
+}
+`;
+
+exports[`toFigmaRGB return value as figma PaintStyle 1`] = `
+Object {
+  "b": 1,
+  "g": 1,
+  "r": 1,
+}
+`;
+
+exports[`toFigmaRGB return value as figma PaintStyle 2`] = `
+Object {
+  "b": 0,
+  "g": 0,
+  "r": 0,
+}
+`;
+
+exports[`toFigmaRGB return value as figma PaintStyle 3`] = `
+Object {
+  "a": 0.8,
+  "b": 0,
+  "g": 0,
+  "r": 0,
+}
+`;
+
+exports[`updatePaintStyle createPaintStyle have been called and return object 1`] = `
+Object {
+  "description": "Basic color",
+  "name": "Red",
+  "paints": Array [
+    Object {
+      "color": Object {
+        "b": 0,
+        "g": 0,
+        "r": 1,
+      },
+      "opacity": 1,
+      "type": "SOLID",
+    },
+  ],
+}
+`;

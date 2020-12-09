@@ -11,15 +11,13 @@ export const toFigmaRGB = (value: string) => {
   return hexToFigmaRGB('#000')
 }
 
-function mapTokensToFigmaNaming(colors: TokensGroup) {
+export function mapTokensGroupToFigmaGroup(tokensGroup: TokensGroup) {
   const styles: TokensGroup = {}
 
-  const queue = Object.entries(colors)
+  const queue = Object.entries(tokensGroup)
 
   while (queue.length > 0) {
-    const entry = queue.shift()
-
-    if (!entry) continue
+    const entry = queue.shift()!
 
     const [key, value] = entry
     if (isTokenPrimitiveValue(value) || isTokenValue(value)) {
@@ -33,32 +31,28 @@ function mapTokensToFigmaNaming(colors: TokensGroup) {
   return styles
 }
 
+export const updatePaintStyle = (name: string, color: ReturnType<typeof toFigmaRGB>, description?: string) => {
+  return Object.assign(figma.createPaintStyle(), {
+    name,
+    paints: [
+      {
+        type: 'SOLID',
+        color,
+        opacity: 1,
+      },
+    ],
+    description,
+  })
+}
+
 export const updatePaintStyles = (colors: TokensGroup) => {
-  const styles = mapTokensToFigmaNaming(colors)
+  const styles = mapTokensGroupToFigmaGroup(colors)
 
   for (const [name, value] of Object.entries(styles)) {
-    const paintStyle = figma.createPaintStyle()
-    paintStyle.name = name
-
     if (isTokenPrimitiveValue(value)) {
-      paintStyle.paints = [
-        {
-          type: 'SOLID',
-          color: toFigmaRGB(value as string),
-          opacity: 1,
-        },
-      ]
+      updatePaintStyle(name, toFigmaRGB(value as string))
     } else if (isTokenValue(value)) {
-      paintStyle.paints = [
-        {
-          type: 'SOLID',
-          color: toFigmaRGB(value.value as string),
-          opacity: 1,
-        },
-      ]
-      if (value.description) {
-        paintStyle.description = value.description
-      }
+      updatePaintStyle(name, toFigmaRGB(value.value as string), value.description)
     }
   }
 }
