@@ -1,4 +1,4 @@
-import { TokensData } from './TokensData'
+import { isTokenPrimitiveValue, isTokensGroup, isTokenValue, TokensData } from './TokensData'
 
 describe('TokenData', () => {
   test('tokensJSON set', () => {
@@ -70,5 +70,32 @@ describe('TokenData', () => {
         },
       },
     })
+  })
+})
+
+describe('isTokenPrimitiveValue', () => {
+  test('return correct value', () => {
+    expect(isTokenPrimitiveValue('100px')).toBeTruthy()
+    expect(isTokenPrimitiveValue(100)).toBeTruthy()
+    expect(isTokenPrimitiveValue({ blah: {} })).toBeFalsy()
+    expect(isTokenPrimitiveValue({ value: 'rgba(0 0 0)' })).toBeFalsy()
+  })
+})
+
+describe('isTokenValue', () => {
+  test('return correct value', () => {
+    expect(isTokenValue({ value: 'rgba(0 0 0)' })).toBeTruthy()
+    expect(isTokenValue('100px')).toBeFalsy()
+    expect(isTokenValue(100)).toBeFalsy()
+    expect(isTokenValue({ colors: {} })).toBeFalsy()
+  })
+})
+
+describe('isTokenGroup', () => {
+  test('return correct value', () => {
+    expect(isTokensGroup({ colors: {} })).toBeTruthy()
+    expect(isTokensGroup({ value: 'rgba(0 0 0)' })).toBeFalsy()
+    expect(isTokensGroup('100px')).toBeFalsy()
+    expect(isTokensGroup(100)).toBeFalsy()
   })
 })

@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["DOM"],
     "outDir": "dist",
     "rootDir": ".",
     "resolveJsonModule": true,
