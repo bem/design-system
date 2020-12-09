@@ -11,7 +11,7 @@ export const toFigmaRGB = (value: string) => {
   return hexToFigmaRGB('#000')
 }
 
-export const updatePaintStyles = (colors: TokensGroup) => {
+function mapTokensToFigmaNaming(colors: TokensGroup) {
   const styles: TokensGroup = {}
 
   const queue = Object.entries(colors)
@@ -30,6 +30,11 @@ export const updatePaintStyles = (colors: TokensGroup) => {
       })
     }
   }
+  return styles
+}
+
+export const updatePaintStyles = (colors: TokensGroup) => {
+  const styles = mapTokensToFigmaNaming(colors)
 
   for (const [name, value] of Object.entries(styles)) {
     const paintStyle = figma.createPaintStyle()

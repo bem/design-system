@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren, useContext, useMemo, useReducer } from 'react'
+import React, { createContext, FC, useContext, useMemo, useReducer } from 'react'
 import packageJson from '../../package.json'
 import defaultLight from '../config/default.light.json'
 import { TokensData } from '../lib/TokensData'
@@ -42,6 +42,18 @@ export enum ActionType {
   RemovePaintStyles = 'REMOVE_PAINT_STYLES',
 }
 
+const postPluginMessage = (type: string, payload?: any): void => {
+  parent.postMessage(
+    {
+      pluginMessage: {
+        type,
+        payload,
+      },
+    },
+    '*',
+  )
+}
+
 const tokensReducer = (state: any, { type, data }: { type: ActionType; data?: any }) => {
   switch (type) {
     case ActionType.SetDefaultTokens:
@@ -55,26 +67,10 @@ const tokensReducer = (state: any, { type, data }: { type: ActionType; data?: an
         ...data,
       }
     case ActionType.CreatePaintStyles:
-      parent.postMessage(
-        {
-          pluginMessage: {
-            type: 'create-paint-styles',
-            tokens: state.tokensData.resolvedTokens,
-          },
-        },
-        '*',
-      )
+      postPluginMessage('create-paint-styles', state.tokensData.resolvedTokens)
       return state
     case ActionType.RemovePaintStyles:
-      parent.postMessage(
-        {
-          pluginMessage: {
-            type: 'remove-paint-styles',
-            tokens: state.tokensData.resolvedTokens,
-          },
-        },
-        '*',
-      )
+      postPluginMessage('remove-paint-styles')
       return state
     default:
       throw new Error(`Unhandled action type: ${type}`)
@@ -85,7 +81,7 @@ const initialState = {
   tokensData: new TokensData(emptyTokens.data.values),
 }
 
-const TokensProvider = ({ children }: PropsWithChildren<any>) => {
+const TokensProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(tokensReducer, initialState)
 
   const tokensContext = useMemo<TokensDispatchContext>(

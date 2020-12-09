@@ -5,10 +5,10 @@ figma.showUI(__html__, {
   height: 600,
 })
 
-figma.ui.onmessage = async (msg) => {
+figma.ui.onmessage = (msg) => {
   switch (msg.type) {
     case 'create-paint-styles':
-      updatePaintStyles(msg.tokens.colors)
+      updatePaintStyles(msg.payload.colors)
       break
 
     case 'remove-paint-styles':
