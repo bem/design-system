@@ -14,6 +14,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test:coverage": "npm run test -- --collectCoverage",
     "build": "webpack --mode=production",
     "webpack:watch": "webpack && webpack serve --config webpack.hmr.config.js"
   },
