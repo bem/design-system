@@ -3,6 +3,7 @@ export type webRGBA = [number, number, number, number]
 const defaultWebRgb = [0, 0, 0]
 
 const hexRegex = /^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/
+const rgbaRegex = /^rgba?\(/
 
 export const cssRGBtoWebRgb = (rgb: string) => {
   const match = rgb.match(/rgba?\((.*?)\)/)
@@ -21,5 +22,5 @@ export const cssRGBtoWebRgb = (rgb: string) => {
   }
   return defaultWebRgb as webRGBA
 }
-export const isRgb = (value: string) => value.startsWith('rgb(') || value.startsWith('rgba(')
+export const isRgb = (value: string) => value.match(rgbaRegex)
 export const isHex = (value: string) => value.match(hexRegex)
