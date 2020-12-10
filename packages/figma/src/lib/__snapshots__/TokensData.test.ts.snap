@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TokensData #resolvedTokens get resolved tokens 1`] = `
+Object {
+  "colors": Object {
+    "Action": Object {
+      "Focus": "#ff0000",
+    },
+    "Red": Object {
+      "100": "#ff0000",
+    },
+  },
+}
+`;
