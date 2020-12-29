@@ -3,15 +3,15 @@ import { cssRGBtoWebRgb, isHex, isRgb } from './colors'
 describe('colors', () => {
   describe('cssRGBtoWebRgb', () => {
     test('return the correct value', () => {
-      expect(cssRGBtoWebRgb('rgb(1, 1, 1)')).toEqual([1, 1, 1])
-      expect(cssRGBtoWebRgb('rgba(1, 1, 1)')).toEqual([1, 1, 1])
-      expect(cssRGBtoWebRgb('rgba(1, 1, 1, .8)')).toEqual([1, 1, 1, 0.8])
-      expect(cssRGBtoWebRgb('rgba(1, 1, 1, 0.8)')).toEqual([1, 1, 1, 0.8])
-      expect(cssRGBtoWebRgb('rgba(1 1 1)')).toEqual([1, 1, 1])
+      expect(cssRGBtoWebRgb('rgb(1, 2, 3)')).toEqual([1, 2, 3])
+      expect(cssRGBtoWebRgb('rgba(1, 2, 3)')).toEqual([1, 2, 3])
+      expect(cssRGBtoWebRgb('rgba(1, 2, 3, .8)')).toEqual([1, 2, 3, 0.8])
+      expect(cssRGBtoWebRgb('rgba(1, 2, 3, 0.8)')).toEqual([1, 2, 3, 0.8])
+      expect(cssRGBtoWebRgb('rgba(1 2 3)')).toEqual([1, 2, 3])
     })
 
     test('return the default array', () => {
-      expect(cssRGBtoWebRgb('rg(1, 1, 1)')).toEqual([0, 0, 0])
+      expect(cssRGBtoWebRgb('rg(1, 2, 3)')).toEqual([0, 0, 0])
       expect(cssRGBtoWebRgb('rgb(' + ')')).toEqual([0, 0, 0])
     })
   })
