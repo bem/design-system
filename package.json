@@ -1,32 +1,39 @@
 {
   "private": true,
   "scripts": {
-    "bootstrap": "lerna bootstrap --no-ci",
+    "postinstall": "npm run bootstrap",
+    "bootstrap": "lerna bootstrap --hoist",
     "lint": "eslint --ext .js,.ts,.tsx .",
-    "build": "lerna run build --concurrency=1"
+    "build": "lerna run build --stream --concurrency=1",
+    "test": "lerna run test --stream  --concurrency=1"
   },
   "devDependencies": {
     "@commitlint/cli": "11.0.0",
     "@commitlint/config-conventional": "11.0.0",
+    "@types/jest": "^26.0.19",
     "@typescript-eslint/eslint-plugin": "4.8.2",
     "@typescript-eslint/parser": "4.8.2",
     "eslint": "7.14.0",
     "eslint-config-airbnb-typescript-prettier": "4.1.0",
     "eslint-plugin-react": "7.21.5",
     "husky": "4.3.0",
+    "jest": "^26.6.3",
     "lerna": "3.22.1",
     "lint-staged": "10.5.2",
     "prettier": "2.2.0",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.1.1",
     "typescript": "4.1.2"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": ["prettier --write", "eslint --fix"],
+    "*.{ts,tsx}": ["prettier --write", "eslint --fix"],
+    "**/src/**/*.{ts,tsx}": ["jest --findRelatedTests"],
     "*.md": ["prettier --write --parser markdown"],
     "*.json": ["prettier --write --parser json"]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && lerna run test --since main",
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
